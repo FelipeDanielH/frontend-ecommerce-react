@@ -1,0 +1,61 @@
+import { useState, useEffect, useMemo } from "react";
+import FiltersSidebar from "../components/FiltersSidebar";
+import ProductCard from "../components/ProductCard";
+import { useProductos } from "../hooks/useProductos";
+import { fetchCategorias } from "../services/categoriasService"; // lo creamos ahora
+
+export default function CatalogoPage() {
+  const [categoriaPadre, setCategoriaPadre] = useState(null);
+  const [categoriaHija, setCategoriaHija] = useState(null);
+  const [categorias, setCategorias] = useState([]);
+
+  const categoriaActiva = categoriaHija || categoriaPadre;
+
+  const categoriasPadre = categorias.filter(cat => cat.categoriaPadreId === null);
+  const categoriasHijas = useMemo(() => {
+    return categorias.filter(cat => cat.categoriaPadreId === parseInt(categoriaPadre));
+  }, [categorias, categoriaPadre]);
+
+  const { productos, loading } = useProductos({
+    categoriaPadreId: categoriaPadre,
+    categoriaHijaId: categoriaHija,
+    categoriasHijas,
+  });
+  
+  useEffect(() => {
+    fetchCategorias().then(setCategorias);
+  }, []);
+
+  console.log("🧪 Padre:", categoriaPadre, "Hija:", categoriaHija, "Productos:", productos);
+  return (
+    <div className="container my-5">
+      <div className="row">
+        <div className="col-md-3">
+          <FiltersSidebar
+            categoriaPadre={categoriaPadre}
+            setCategoriaPadre={setCategoriaPadre}
+            categoriaHija={categoriaHija}
+            setCategoriaHija={setCategoriaHija}
+            categoriasPadre={categoriasPadre}
+            categoriasHijas={categoriasHijas}
+          />
+        </div>
+        <div className="col-md-9">
+          {loading ? (
+            <p>Cargando productos...</p>
+          ) : productos.length === 0 ? (
+            <p>No hay productos para la categoría seleccionada (ID: {categoriaActiva})</p>
+          ) : (
+            <div className="row row-cols-1 row-cols-md-3 g-4">
+              {productos.map(producto => (
+                <div className="col" key={producto.id}>
+                  <ProductCard producto={producto} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
