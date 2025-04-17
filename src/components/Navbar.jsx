@@ -52,7 +52,7 @@ export default function Navbar() {
         <Link className="navbar-brand fw-bold" to="/">
           <i className="bi bi-bag-check-fill me-2"></i>MiPlataforma
         </Link>
-
+  
         <form className="d-flex flex-grow-1 mx-3" role="search">
           <input
             className="form-control me-2"
@@ -64,9 +64,9 @@ export default function Navbar() {
             Buscar
           </button>
         </form>
-
+  
         <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row align-items-center gap-3">
-
+  
           {!user && (
             <>
               <li className="nav-item">
@@ -77,28 +77,41 @@ export default function Navbar() {
               </li>
             </>
           )}
-
-          {user && isComprador && (
+  
+          {user && (
             <>
-              {/* Icono del carrito */}
-              <li className="nav-item position-relative">
-                <Link className="nav-link" to="/carrito">
-                  <i className="bi bi-cart4 fs-5"></i>
-                  {cantidadItems > 0 && (
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                      style={{ fontSize: '0.65rem', transform: 'translate(-50%, -50%)' }}>
-                      {cantidadItems}
-                    </span>
-                  )}
-                </Link>
-              </li>
+             
+  
+              {/* Carrito para COMPRADOR */}
+              {isComprador && (
+                <li className="nav-item position-relative">
+                  <Link className="nav-link" to="/carrito">
+                    <i className="bi bi-cart4 fs-5"></i>
+                    {cantidadItems > 0 && (
+                      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        style={{ fontSize: '0.65rem', transform: 'translate(-50%, -50%)' }}>
+                        {cantidadItems}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              )}
+  
+              {/* Botón "Vender" para VENDEDOR */}
+              {!isComprador && (
+                <li className="nav-item">
+                  <Link to="/dashboard/crear-producto" className="btn btn-outline-dark btn-sm">
+                    <i className="bi bi-box-seam me-1"></i> Vender
+                  </Link>
+                </li>
+              )}
 
-              {/* Saludo */}
-              <li className="nav-item d-none d-md-block">
+               {/* 👋 Saludo visible para todos los usuarios logueados */}
+               <li className="nav-item d-none d-md-block">
                 <span className="nav-link fw-semibold">Hola, {user.nombre}</span>
               </li>
-
-              {/* Dropdown de usuario */}
+  
+              {/* Dropdown común */}
               <li className="nav-item dropdown" ref={dropdownRef}>
                 <span
                   className="nav-link dropdown-toggle"
@@ -113,21 +126,20 @@ export default function Navbar() {
                   <li>
                     <button className="dropdown-item" onClick={handleNavigatePerfil}>Perfil</button>
                   </li>
+                  {isComprador && (
+                    <li>
+                      <button className="dropdown-item" onClick={handleNavigateCompras}>Compras</button>
+                    </li>
+                  )}
                   <li>
-                    <button className="dropdown-item" onClick={handleNavigateCompras}>Compras</button>
-                  </li>
-                  <li>
-                    <button className="dropdown-item" onClick={handleLogout}>
-                      Cerrar sesión
-                    </button>
+                    <button className="dropdown-item" onClick={handleLogout}>Cerrar sesión</button>
                   </li>
                 </ul>
               </li>
             </>
           )}
-
         </ul>
       </div>
     </nav>
   );
-}
+}  
