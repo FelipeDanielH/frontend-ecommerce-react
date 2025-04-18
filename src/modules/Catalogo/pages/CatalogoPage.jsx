@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import FiltersSidebar from "../components/FiltersSidebar";
 import ProductCard from "../components/ProductCard";
 import { useProductos } from "../hooks/useProductos";
-import { fetchCategorias } from "../services/categoriasService"; // lo creamos ahora
+import { fetchCategorias } from "../services/categoriasService";
 
 export default function CatalogoPage() {
   const [categoriaPadre, setCategoriaPadre] = useState(null);
@@ -11,9 +11,14 @@ export default function CatalogoPage() {
 
   const categoriaActiva = categoriaHija || categoriaPadre;
 
-  const categoriasPadre = categorias.filter(cat => cat.categoriaPadreId === null);
+  const categoriasPadre = categorias.filter(
+    (cat) => cat.categoriaPadreId === null
+  );
+
   const categoriasHijas = useMemo(() => {
-    return categorias.filter(cat => cat.categoriaPadreId === parseInt(categoriaPadre));
+    return categorias.filter(
+      (cat) => cat.categoriaPadreId === parseInt(categoriaPadre)
+    );
   }, [categorias, categoriaPadre]);
 
   const { productos, loading } = useProductos({
@@ -21,12 +26,24 @@ export default function CatalogoPage() {
     categoriaHijaId: categoriaHija,
     categoriasHijas,
   });
-  
+
   useEffect(() => {
-    fetchCategorias().then(setCategorias);
+    fetchCategorias()
+      .then(setCategorias)
+      .catch((error) => {
+        console.error("Error al obtener categorías:", error);
+      });
   }, []);
 
-  console.log("🧪 Padre:", categoriaPadre, "Hija:", categoriaHija, "Productos:", productos);
+  console.log(
+    "🧪 Padre:",
+    categoriaPadre,
+    "Hija:",
+    categoriaHija,
+    "Productos:",
+    productos
+  );
+
   return (
     <div className="container my-5">
       <div className="row">
@@ -44,10 +61,13 @@ export default function CatalogoPage() {
           {loading ? (
             <p>Cargando productos...</p>
           ) : productos.length === 0 ? (
-            <p>No hay productos para la categoría seleccionada (ID: {categoriaActiva})</p>
+            <p>
+              No hay productos para la categoría seleccionada (ID:{" "}
+              {categoriaActiva})
+            </p>
           ) : (
             <div className="row row-cols-1 row-cols-md-3 g-4">
-              {productos.map(producto => (
+              {productos.map((producto) => (
                 <div className="col" key={producto.id}>
                   <ProductCard producto={producto} />
                 </div>

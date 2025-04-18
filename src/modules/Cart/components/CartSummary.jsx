@@ -1,11 +1,40 @@
 // src/modules/Cart/components/CartSummary.jsx
 import { useNavigate } from "react-router-dom";
+import { useCartContext } from "../../Cart/context/CartContext";
 
 export default function CartSummary({ total }) {
   const navigate = useNavigate();
+  const { cartItems } = useCartContext();
 
-  const handleProceed = () => {
-    navigate("/checkout");
+  const handleProceed = async () => {
+    try {
+      const errores = [];
+  
+      for (const item of cartItems) {
+        const res = await fetch(`http://localhost:8080/productos/${item.id}`);
+        const producto = await res.json();
+  
+        if (producto.stock < item.qty) {
+          if (producto.stock === 0) {
+            errores.push(`❌ ${item.title} está agotado`);
+          }else{
+            errores.push(`❌ ${item.title} solo tiene ${producto.stock} en stock (querías ${item.qty})`);
+          }
+          
+        }
+      }
+  
+      if (errores.length > 0) {
+        alert(`No se puede continuar con la compra:\n\n${errores.join("\n")}`);
+        window.location.reload(); // ⚠️ forzar recarga del carrito actualizado
+        return;
+      }
+  
+      navigate("/checkout");
+    } catch (err) {
+      alert("Error al verificar stock. Intenta nuevamente.");
+      console.error(err);
+    }
   };
 
   return (

@@ -29,6 +29,8 @@ export default function useCart(usuarioId) {
             qty: detalle.cantidad,
             img: `https://via.placeholder.com/100x100?text=${encodeURIComponent(producto.nombre)}`,
             total: detalle.precioUnitario * detalle.cantidad,
+            stock: producto.stock,
+            vendedor: producto.vendedor,
           };
         })
       );

@@ -2,6 +2,7 @@ import { useCrearOrden } from "../../Ordenes/hooks/useCrearOrden";
 import { useAuth } from "../../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../Cart/context/CartContext";
+import { productoService, fetchProductoById } from "../../Catalogo/services/productosService";
 
 export default function CheckoutResumen({ productos, metodoPago }) {
   const { user } = useAuth();
@@ -15,32 +16,72 @@ export default function CheckoutResumen({ productos, metodoPago }) {
       return;
     }
 
-    const detalles = productos.map((p) => ({
-      productoId: p.productoId || p.id,
-      nombreProducto: p.nombreProducto || p.title,
-      cantidad: p.cantidad || p.qty,
-      precioUnitario:
-        p.precioUnitario ?? parseFloat(p.price?.replace("$", ""))
-    }));
+    for (const p of productos) {
+      const id = p.productoId || p.id;
+      const cantidadDeseada = p.cantidad || p.qty;
+      const producto = await fetchProductoById(id);
+    
+      if (producto.stock < cantidadDeseada) {
+        if (producto.stock === 0) {
+          errores.push(`❌ ${item.title} está agotado`);
+        }else{
+          errores.push(`❌ ${item.title} solo tiene ${producto.stock} en stock (querías ${item.qty})`);
+        }
+        navigate("/carrito");
+      }
+    }
 
-    const total = detalles.reduce(
-      (acc, item) => acc + item.precioUnitario * item.cantidad,
-      0
-    );
+    try {
+      const detalles = productos.map((p) => ({
+        productoId: p.productoId || p.id,
+        nombreProducto: p.nombreProducto || p.title,
+        cantidad: p.cantidad || p.qty,
+        precioUnitario:
+          p.precioUnitario ?? parseFloat(p.price?.replace("$", ""))
+      }));
 
-    const response = await crearOrden({
-      userId: user.id,
-      total,
-      estado: "PENDIENTE",
-      detalles
-    });
+      const total = detalles.reduce(
+        (acc, item) => acc + item.precioUnitario * item.cantidad,
+        0
+      );
 
-    if (response.success) {
-      navigate("/perfil", { state: { seccion: "compras" } });
-      await vaciarCarrito(); // 🧹 ahora sí, limpiar desde backend
-      await refreshCart(); // 🧹 limpiar el carrito en el frontend
-    } else {
-      alert("Hubo un error al crear la orden.");
+      const response = await crearOrden({
+        userId: user.id,
+        total,
+        estado: "PENDIENTE",
+        detalles
+      });
+
+      if (response?.success) {
+        // 🔥 Descontar stock en backend 🔥
+        for (const detalle of response.orden.detalles) {
+          try {
+            const producto = await fetchProductoById(detalle.productoId);
+
+            if (producto?.stock != null) {
+              const nuevoStock = producto.stock - detalle.cantidad;
+
+              if (nuevoStock >= 0) {
+                await productoService.actualizarStock(detalle.productoId, nuevoStock);
+              } else {
+                console.warn(`Stock insuficiente para el producto ID ${detalle.productoId}`);
+              }
+            }
+          } catch (error) {
+            console.error(`Error al actualizar stock del producto ${detalle.productoId}:`, error);
+          }
+        }
+
+        navigate("/perfil", { state: { seccion: "compras" } });
+        await vaciarCarrito();
+        await refreshCart();
+      } else {
+        alert("Hubo un error al crear la orden.");
+        console.log({ response });
+      }
+    } catch (err) {
+      console.error("Error al procesar la orden:", err);
+      alert("Ocurrió un error al procesar tu orden. Intenta nuevamente.");
     }
   };
 

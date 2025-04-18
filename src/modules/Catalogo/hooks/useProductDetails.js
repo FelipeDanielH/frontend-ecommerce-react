@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchProductoById } from "../services/productosService";
+import {  obtenerProductoConVendedor } from "../services/productosService";
 
 export function useProductDetails(id) {
   const [producto, setProducto] = useState(null);
@@ -8,7 +8,7 @@ export function useProductDetails(id) {
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    fetchProductoById(id)
+    obtenerProductoConVendedor(id)
       .then(setProducto)
       .finally(() => setLoading(false));
   }, [id]);

@@ -16,4 +16,3 @@ export const ordenService = {
       return await res.json(); // devuelve la orden creada
     }
   };
-  

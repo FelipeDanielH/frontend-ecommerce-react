@@ -19,6 +19,7 @@ export default function ProductPage() {
   const { reseñas, loading: loadingReseñas } = useReseñas(id);
   const { imagenes, loading: loadingImgs } = useProductoImagenes(id);
 
+  console.log("Producto:", producto);
 
   if (loading || loadingImg) {
     return (
@@ -54,6 +55,8 @@ export default function ProductPage() {
             title={producto.nombre}
             price={`$${producto.precio.toFixed(2)}`}
             productoId={producto.id}
+            stock={producto.stock}                
+            vendedor={producto.vendedorNombre}  
           />
         </div>
       </div>

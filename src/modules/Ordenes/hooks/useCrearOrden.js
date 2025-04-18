@@ -8,7 +8,11 @@ export function useCrearOrden() {
   const { cartItems, refreshCart } = useCartContext();
 
   const crearOrden = async ({ userId, direccion, metodoPago }) => {
+
+    console.log("Creando orden con:", { userId, direccion, metodoPago });
     setLoading(true);
+
+    console.log("Items del carrito:", cartItems);
 
     const detalles = cartItems.map((item) => ({
       productoId: item.id,
@@ -27,8 +31,6 @@ export function useCrearOrden() {
       total,
       estado: "PENDIENTE",
       detalles,
-      direccionEnvio: direccion,
-      metodoPago,
     };
 
     try {
