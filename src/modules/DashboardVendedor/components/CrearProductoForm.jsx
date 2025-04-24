@@ -187,7 +187,7 @@ export default function CrearProductoForm() {
 
       <button
         type="submit"
-        className="btn btn-warning fw-bold mt-3"
+        className="btn btn-green-custom fw-bold mt-3"
         disabled={loading}
       >
         {loading ? "Publicando..." : "Publicar producto"}

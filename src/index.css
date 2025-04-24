@@ -1,0 +1,44 @@
+.bg-green-custom {
+    background-color: #10B981 !important;
+}
+
+.btn-green-custom {
+    background-color: #10B981;
+    color: white;
+    border: none;
+}
+
+.btn-green-custom:hover {
+    background-color: #059669;
+}
+  
+.text-green-custom {
+    color: #10B981 !important;
+}
+
+.btn-outline-green-custom {
+    color: #10B981;
+    border: 1px solid #10B981;
+    background-color: transparent;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+  
+.btn-outline-green-custom:hover {
+    background-color: #10B981;
+    color: white;
+}
+
+.text-purple-custom {
+    color: #6D28D9 !important;
+}
+
+.btn-purple-custom {
+    background-color: #6D28D9;
+    color: white;
+    border: none;
+}
+  
+.btn-purple-custom:hover {
+    background-color: #5B21B6;
+}
+

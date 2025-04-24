@@ -47,10 +47,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-warning sticky-top shadow-sm">
+    <nav className="navbar navbar-expand-lg sticky-top shadow-sm bg-green-custom navbar-dark">
       <div className="container">
         <Link className="navbar-brand fw-bold" to="/">
-          <i className="bi bi-bag-check-fill me-2"></i>MiPlataforma
+          <i className="bi bi-bag-check-fill me-2"></i>EcoMarket
         </Link>
   
         <form className="d-flex flex-grow-1 mx-3" role="search">
@@ -60,7 +60,7 @@ export default function Navbar() {
             placeholder="Buscar productos, marcas y más"
             aria-label="Buscar"
           />
-          <button className="btn btn-outline-dark" type="submit">
+          <button className="btn btn-outline-light" type="submit">
             Buscar
           </button>
         </form>

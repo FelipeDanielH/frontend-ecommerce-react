@@ -53,7 +53,7 @@ export default function CartSummary({ total }) {
         <span>{total}</span>
       </div>
 
-      <button className="btn btn-warning w-100" onClick={handleProceed}>
+      <button className="btn btn-green-custom w-100" onClick={handleProceed}>
         Proceder al pago
       </button>
     </div>

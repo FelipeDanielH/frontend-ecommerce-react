@@ -126,9 +126,10 @@ export default function RegisterForm() {
         </div>
 
         <div className="d-grid mt-2">
-          <button type="submit" className="btn btn-warning btn-lg">
-            Crear cuenta
-          </button>
+        <button type="submit" className="btn btn-lg btn-green-custom">
+            Iniciar sesión
+        </button>
+
         </div>
 
         <div className="text-center mt-3">

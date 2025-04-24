@@ -88,7 +88,7 @@ export default function ProductInfo({ title, price, productoId, stock, vendedor 
         {errorStock && <p className="text-danger small">{errorStock}</p>}
 
         <button
-          className="btn btn-warning w-100 mb-2"
+          className="btn btn-green-custom w-100 mb-2"
           onClick={handleBuyNow}
           disabled={sinStock || cantidad > stock}
         >

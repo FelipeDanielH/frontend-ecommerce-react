@@ -16,7 +16,7 @@ export default function LoginForm() {
           alt="Logo"
           style={{ width: "60px", height: "60px" }}
         />
-        <h3 className="mt-3">Inicia sesión en MiPlataforma</h3>
+        <h3 className="mt-3">Inicia sesión en EcoMarket</h3>
         <p className="text-muted">Accede con tu cuenta para continuar</p>
       </div>
 
@@ -66,9 +66,10 @@ export default function LoginForm() {
         </div>
 
         <div className="d-grid mt-4">
-          <button type="submit" className="btn btn-warning btn-lg">
-            Iniciar sesión
-          </button>
+        <button type="submit" className="btn btn-lg btn-green-custom">
+  Iniciar sesión
+</button>
+
         </div>
 
         <div className="text-center mt-3">

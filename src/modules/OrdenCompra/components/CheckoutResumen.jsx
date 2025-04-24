@@ -129,7 +129,7 @@ export default function CheckoutResumen({ productos, metodoPago }) {
 
       <div className="d-grid mt-4">
         <button
-          className="btn btn-warning btn-lg"
+          className="btn btn-green-custom btn-lg"
           disabled={loading}
           onClick={handleComprar}
         >

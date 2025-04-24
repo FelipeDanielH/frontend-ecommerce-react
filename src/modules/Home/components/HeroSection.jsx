@@ -7,7 +7,7 @@ export default function HeroSection() {
           <div className="col-md-6 mb-4 mb-md-0">
             <h2 className="fw-bold">Encuentra todo lo que necesitas</h2>
             <p className="lead">Miles de productos de diferentes categorías al mejor precio.</p>
-            <a href="/catalogo" className="btn btn-warning text-dark fw-bold">
+            <a href="/catalogo" className="btn btn-green-custom fw-bold">
               Explorar catálogo
             </a>
           </div>

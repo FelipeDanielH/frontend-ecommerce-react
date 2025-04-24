@@ -14,7 +14,7 @@ export default function CategoriesSection() {
           <div className="row text-center">
             {categories.map((cat, idx) => (
               <div key={idx} className="col-6 col-md-2 mb-4">
-                <i className={`bi bi-${cat.icon} fs-2 text-warning`}></i>
+                <i className={`bi bi-${cat.icon} fs-2 text-green-custom`}></i>
                 <p className="mt-2">{cat.name}</p>
               </div>
             ))}

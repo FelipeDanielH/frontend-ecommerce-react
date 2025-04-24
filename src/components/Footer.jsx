@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="container">
         <div className="row text-center text-md-start">
           <div className="col-md-4 mb-3">
-            <h6 className="fw-bold">MiPlataforma</h6>
+            <h6 className="fw-bold">EcoMarket</h6>
             <p>Tu sitio de confianza para comprar y vender.</p>
           </div>
           <div className="col-md-4 mb-3">
@@ -17,12 +17,12 @@ export default function Footer() {
           </div>
           <div className="col-md-4 mb-3">
             <h6 className="fw-bold">Contacto</h6>
-            <p>Email: contacto@miplataforma.com</p>
+            <p>Email: contacto@ecomarket.com</p>
             <p>Tel: +1 123 456 789</p>
           </div>
         </div>
         <div className="text-center mt-3">
-          <small>© {new Date().getFullYear()} MiPlataforma. Todos los derechos reservados.</small>
+          <small>© {new Date().getFullYear()} EcoMarket. Todos los derechos reservados.</small>
         </div>
       </div>
     </footer>

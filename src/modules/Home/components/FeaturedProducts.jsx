@@ -16,8 +16,8 @@ export default function FeaturedProducts() {
                   <img src={p.img} className="card-img-top" alt={p.title} />
                   <div className="card-body">
                     <h6 className="card-title">{p.title}</h6>
-                    <p className="card-text text-success fw-bold">{p.price}</p>
-                    <a href="#" className="btn btn-sm btn-outline-warning w-100">
+                    <p className="card-text text-purple-custom fw-bold">{p.price}</p>
+                    <a href="#" className="btn btn-sm btn-outline-green-custom w-100">
                       Ver más
                     </a>
                   </div>
