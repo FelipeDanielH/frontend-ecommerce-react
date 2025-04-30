@@ -2,6 +2,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useCartContext } from "../../Cart/context/CartContext";
 
+const API_URL = import.meta.env.VITE_API_URL
+
 export default function useCart(usuarioId) {
   const { refreshCart } = useCartContext();
   const [cartItems, setCartItems] = useState([]);
@@ -12,14 +14,14 @@ export default function useCart(usuarioId) {
   const fetchCart = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:8080/carrito/${usuarioId}`);
+      const res = await fetch(`${API_URL}/carrito/${usuarioId}`);
       const data = await res.json();
 
       const detalles = data.detalles || [];
 
       const productosCompletos = await Promise.all(
         detalles.map(async (detalle) => {
-          const resProd = await fetch(`http://localhost:8080/productos/${detalle.productoId}`);
+          const resProd = await fetch(`${API_URL}/productos/${detalle.productoId}`);
           const producto = await resProd.json();
 
           return {
@@ -52,7 +54,7 @@ export default function useCart(usuarioId) {
   const removeFromCart = async (productoId) => {
     try {
       const res = await fetch(
-        `http://localhost:8080/carrito/${usuarioId}/producto/${productoId}`,
+        `${API_URL}/carrito/${usuarioId}/producto/${productoId}`,
         {
           method: 'DELETE',
         }
@@ -73,7 +75,7 @@ export default function useCart(usuarioId) {
     if (nuevaCantidad < 1) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/carrito/${usuarioId}/producto`, {
+      const res = await fetch(`${API_URL}/carrito/${usuarioId}/producto`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

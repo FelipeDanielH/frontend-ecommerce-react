@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../../../context/authContext";
 
+const API_URL = import.meta.env.VITE_API_URL
+
 export function useCrearProducto() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ export function useCrearProducto() {
     }
 
     try {
-      const productoRes = await fetch("http://localhost:8080/productos", {
+      const productoRes = await fetch(`${API_URL}/productos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -36,7 +38,7 @@ export function useCrearProducto() {
         .filter((url) => url.trim() !== "")
         .map((url) => ({ urlImagen: url }));
 
-      const imagenRes = await fetch(`http://localhost:8080/imagenes-producto/productos/${producto.id}`, {
+      const imagenRes = await fetch(`${API_URL}/imagenes-producto/productos/${producto.id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(imagenPayload),

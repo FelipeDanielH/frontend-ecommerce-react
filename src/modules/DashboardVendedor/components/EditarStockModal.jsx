@@ -1,6 +1,8 @@
 // src/modules/DashboardVendedor/components/EditarStockModal.jsx
 import { useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL
+
 export default function EditarStockModal({ producto, onClose, onStockUpdated }) {
   const [nuevoStock, setNuevoStock] = useState(producto.stock);
   const [loading, setLoading] = useState(false);
@@ -8,7 +10,7 @@ export default function EditarStockModal({ producto, onClose, onStockUpdated }) 
   const actualizarStock = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8080/productos/${producto.id}/stock`, {
+      const res = await fetch(`${API_URL}/productos/${producto.id}/stock`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stock: nuevoStock })

@@ -1,7 +1,10 @@
 // src/modules/Ordenes/services/ordenService.js
+
+const API_URL = import.meta.env.VITE_API_URL
+
 export const ordenService = {
     async crearOrden(payload) {
-      const res = await fetch("http://localhost:8080/ordenes", {
+      const res = await fetch(`${API_URL}/ordenes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

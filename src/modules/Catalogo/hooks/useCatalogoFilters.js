@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL
+
 export function useCatalogoFilters() {
   const [categoriaPadre, setCategoriaPadre] = useState(null);
   const [categoriaHija, setCategoriaHija] = useState(null);
@@ -10,7 +12,7 @@ export function useCatalogoFilters() {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const res = await fetch("http://localhost:8080/categorias");
+        const res = await fetch(`${API_URL}/categorias`);
         const data = await res.json();
         setCategorias(data);
       } catch (error) {

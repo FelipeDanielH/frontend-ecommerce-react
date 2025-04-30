@@ -1,8 +1,8 @@
-
+const API_URL = import.meta.env.VITE_API_URL
 
 export async function fetchProductos() {
     try {
-        const response = await fetch('http://localhost:8080/productos');
+        const response = await fetch(`${API_URL}/productos`);
         if (!response.ok) throw new Error('Error al cargar productos');
         const data = await response.json();
         console.log(data);
@@ -15,7 +15,7 @@ export async function fetchProductos() {
 
 export async function fetchProductoById(id) {
     try {
-        const response = await fetch(`http://localhost:8080/productos/${id}`);
+        const response = await fetch(`${API_URL}/productos/${id}`);
         if (!response.ok) throw new Error("Error al obtener producto");
         return await response.json();
     } catch (error) {
@@ -25,13 +25,13 @@ export async function fetchProductoById(id) {
 }
 
 export async function getImagenesPorProducto(productoId) {
-    const res = await fetch(`http://localhost:8080/imagenes-producto/producto/${productoId}`);
+    const res = await fetch(`${API_URL}/imagenes-producto/producto/${productoId}`);
     if (!res.ok) throw new Error('Error al obtener las imágenes del producto');
     return await res.json();
 }
 
 export async function fetchProductosPorCategoria(idCategoria) {
-    const res = await fetch(`http://localhost:8080/productos/categoria/${idCategoria}`, {
+    const res = await fetch(`${API_URL}/productos/categoria/${idCategoria}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -44,8 +44,8 @@ export async function fetchProductosPorCategoria(idCategoria) {
 
 export async function obtenerProductoConVendedor(productoId) {
     const [productoRes, vendedorRes] = await Promise.all([
-      fetch(`http://localhost:8080/productos/${productoId}`),
-      fetch(`http://localhost:8080/productos/${productoId}/vendedor`)
+      fetch(`${API_URL}/productos/${productoId}`),
+      fetch(`${API_URL}/productos/${productoId}/vendedor`)
     ]);
   
     if (!productoRes.ok || !vendedorRes.ok) {
@@ -63,7 +63,7 @@ export async function obtenerProductoConVendedor(productoId) {
 
 export const productoService = {
     async actualizarStock(productoId, nuevoStock) {
-        const res = await fetch(`http://localhost:8080/productos/${productoId}/stock`, {
+        const res = await fetch(`${API_URL}/productos/${productoId}/stock`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

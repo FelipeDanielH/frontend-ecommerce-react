@@ -2,6 +2,8 @@
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../Cart/context/CartContext";
 
+const API_URL = import.meta.env.VITE_API_URL
+
 export default function CartSummary({ total }) {
   const navigate = useNavigate();
   const { cartItems } = useCartContext();
@@ -11,7 +13,7 @@ export default function CartSummary({ total }) {
       const errores = [];
   
       for (const item of cartItems) {
-        const res = await fetch(`http://localhost:8080/productos/${item.id}`);
+        const res = await fetch(`${API_URL}/productos/${item.id}`);
         const producto = await res.json();
   
         if (producto.stock < item.qty) {

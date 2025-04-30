@@ -1,6 +1,8 @@
+const API_URL = import.meta.env.VITE_API_URL
+
 export const cartService = {
   async addToCart(usuarioId, productoId, cantidad) {
-    const response = await fetch(`http://localhost:8080/carrito/${usuarioId}/agregar`, {
+    const response = await fetch(`${API_URL}/carrito/${usuarioId}/agregar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ productoId, cantidad }),
@@ -14,7 +16,7 @@ export const cartService = {
   },
 
   async getCart(usuarioId) {
-    const response = await fetch(`http://localhost:8080/carrito/${usuarioId}`);
+    const response = await fetch(`${API_URL}/carrito/${usuarioId}`);
     if (!response.ok) {
       throw new Error('No se pudo obtener el carrito');
     }
@@ -30,7 +32,7 @@ export const cartService = {
   },
 
   async vaciarCarrito(userId) {
-    const res = await fetch(`http://localhost:8080/carrito/${userId}/vaciar`, {
+    const res = await fetch(`${API_URL}/carrito/${userId}/vaciar`, {
       method: "DELETE",
     });
   
