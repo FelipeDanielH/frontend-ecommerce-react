@@ -1,5 +1,5 @@
 import SidebarVendedor from '../components/SidebarVendedor';
-import { useProductosVendedor } from '../hooks/useProductosvendedor';
+import { useProductosVendedor } from '../hooks/useProductosVendedor';
 import EditarStockModal from '../components/EditarStockModal';
 import { useState } from 'react';
 import { useProductoImagen } from '../../Catalogo/hooks/useProductoImagen';
