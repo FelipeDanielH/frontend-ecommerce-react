@@ -11,7 +11,7 @@ import RegisterPage from '../modules/Auth/pages/RegisterPage';
 
 import PerfilRoutes from "../modules/Perfil/routes/PerfilRoutes";
 import CheckoutPage from '../modules/Ordenes/pages/CheckoutPage';
-import DashboardVendedorRoutes from "../modules/DashboardVendedor/routes/DashBoardVendedorRoutes";
+import DashboardVendedorRoutes from "../modules/DashboardVendedor/routes/DashboardVendedorRoutes";
 
 
 
