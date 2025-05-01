@@ -1,3 +1,4 @@
+// src/modules/Catalogo/components/FiltersSidebar.jsx
 export default function FiltersSidebar({
   categoriaPadre,
   setCategoriaPadre,

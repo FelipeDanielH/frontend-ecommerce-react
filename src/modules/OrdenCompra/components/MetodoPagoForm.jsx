@@ -1,6 +1,6 @@
-// MetodoPagoForm.jsx
+// src/modules/OrdenCompra/components/MetodoPagoForm.jsx
 export default function MetodoPagoForm({ metodoPago, setMetodoPago }) {
-    const opciones = ["BancoSimple", "TarjetaCredito", "Transferencia"];
+    const opciones = ["BancoSimple"];
   
     return (
       <div className="card shadow-sm p-3">

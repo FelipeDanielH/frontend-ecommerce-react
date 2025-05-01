@@ -1,3 +1,4 @@
+// src/modules/Catalogo/components/ProductDescription.jsx
 export default function ProductDescription({ description }) {
     return (
       <div className="mt-5">

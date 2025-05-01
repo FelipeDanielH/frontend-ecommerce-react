@@ -1,3 +1,4 @@
+// src/modules/Auth/pages/RegisterPage.jsx
 import RegisterForm from '../components/RegisterForm';
 
 export default function RegisterPage() {

@@ -1,3 +1,4 @@
+//src/modules/Catalogo/components/ProductCard.jsx
 import { Link } from "react-router-dom";
 import { useProductoImagen } from "../hooks/useProductoImagen";
 

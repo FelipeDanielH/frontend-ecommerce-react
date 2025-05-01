@@ -5,7 +5,7 @@ import CartSummary from '../components/CartSummary';
 
 export default function CartPage() {
   const { user } = useAuth();
-  const userId = user?.id; // 🔐 de tu JWT decodificado
+  const userId = user?.id; 
 
   const {
     cartItems,
@@ -14,6 +14,7 @@ export default function CartPage() {
     removeFromCart,
     updateCantidad,
   } = useCart(userId);
+
 
   return (
     <main className="container my-5 flex-grow-1">

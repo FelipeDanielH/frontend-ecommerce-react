@@ -1,3 +1,4 @@
+// src/modules/Catalogo/components/ReviewList.jsx
 export default function ReviewList({ reseñas }) {
     return (
       <div className="mt-5">

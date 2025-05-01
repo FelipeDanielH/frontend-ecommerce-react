@@ -1,3 +1,4 @@
+// src/modules/Catalogo/components/RelatedProducts.jsx
 export default function RelatedProducts() {
     const fakeProducts = Array.from({ length: 4 }, (_, i) => ({
       id: i,

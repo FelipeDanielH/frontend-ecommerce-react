@@ -1,3 +1,4 @@
+//src/modules/Catalogo/services/resenasService.js
 const API_URL = import.meta.env.VITE_API_URL
 
 export async function getReseñasPorProducto(productoId) {

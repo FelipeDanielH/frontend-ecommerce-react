@@ -1,3 +1,4 @@
+// src/modules/Catalogo/services/categoriasService.js
 const API_URL = import.meta.env.VITE_API_URL
 
 export async function fetchCategorias() {

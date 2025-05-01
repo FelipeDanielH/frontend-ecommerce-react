@@ -41,7 +41,7 @@ export default function MetodoPagoForm() {
       setLoading(true);
       await crearOrden(ordenData);
       refreshCart(); // Vaciar carrito
-      navigate("/perfil/compras");
+      navigate("/perfil", { state: { seccion: "compras" } });
     } catch (error) {
       alert("Hubo un error al crear la orden.");
     } finally {

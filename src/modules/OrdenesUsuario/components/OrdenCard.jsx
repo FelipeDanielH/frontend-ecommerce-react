@@ -2,7 +2,7 @@ import ProductoEnOrdenCard from "./ProductoEnOrdenCard";
 
 export default function OrdenCard({ orden }) {
 
-    console.log({ orden });
+  
     return (
         <div className="card mb-4 shadow-sm p-3">
             <h6 className="fw-bold mb-2">Orden: #{orden.id}</h6>
@@ -16,7 +16,6 @@ export default function OrdenCard({ orden }) {
             {orden.productos
                 ?.filter(Boolean)
                 .map((prod, i) => (
-                    console.log(prod),
                     <ProductoEnOrdenCard key={prod.id || i} producto={prod} />
                 ))}
         </div>

@@ -1,3 +1,4 @@
+// src/modules/OrdenCompra/components/CheckoutResumen.jsx
 import { useCrearOrden } from "../../Ordenes/hooks/useCrearOrden";
 import { useAuth } from "../../../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -125,16 +126,6 @@ export default function CheckoutResumen({ productos, metodoPago }) {
         <strong className="text-success">
           ${totalCalculado.toFixed(2)}
         </strong>
-      </div>
-
-      <div className="d-grid mt-4">
-        <button
-          className="btn btn-green-custom btn-lg"
-          disabled={loading}
-          onClick={handleComprar}
-        >
-          {loading ? "Procesando..." : "Comprar"}
-        </button>
       </div>
     </div>
   );

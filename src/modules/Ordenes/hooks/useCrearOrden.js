@@ -9,10 +9,10 @@ export function useCrearOrden() {
 
   const crearOrden = async ({ userId, direccion, metodoPago }) => {
 
-    console.log("Creando orden con:", { userId, direccion, metodoPago });
+   
     setLoading(true);
 
-    console.log("Items del carrito:", cartItems);
+
 
     const detalles = cartItems.map((item) => ({
       productoId: item.id,

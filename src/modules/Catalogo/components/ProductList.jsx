@@ -1,3 +1,4 @@
+// src/modules/Catalogo/components/ProductList.jsx
 import ProductCard from './ProductCard';
 
 export default function ProductList() {

@@ -22,11 +22,14 @@ export const cartService = {
     }
 
     const data = await response.json();
+
+    
     return data.detalles.map((detalle) => ({
       id: detalle.productoId,
       title: detalle.productoNombre,
       price: `$${detalle.precioUnitario.toFixed(2)}`,
       qty: detalle.cantidad,
+      vendedor: detalle.vendedorId,
       img: `https://via.placeholder.com/100x100?text=${encodeURIComponent(detalle.productoNombre)}`,
     }));
   },

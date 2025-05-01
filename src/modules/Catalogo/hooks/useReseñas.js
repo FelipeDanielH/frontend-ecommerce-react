@@ -1,3 +1,4 @@
+// src/modules/Catalogo/hooks/useReseñas.js
 import { useEffect, useState } from "react";
 import { getReseñasPorProducto } from "../services/resenasService";
 

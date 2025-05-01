@@ -1,3 +1,4 @@
+// src/modules/Catalogo/hooks/useProductDetails.js
 import { useEffect, useState } from "react";
 import {  obtenerProductoConVendedor } from "../services/productosService";
 

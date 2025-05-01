@@ -1,3 +1,4 @@
+// src/modules/Catalogo/components/ProductImages.jsx
 export default function ProductImages({ image }) {
     return (
       <div className="text-center mb-4">

@@ -1,3 +1,4 @@
+// src/modules/Catalogo/pages/ProductPage.jsx
 import { useParams } from "react-router-dom";
 import { useProductDetails } from "../hooks/useProductDetails";
 import { useProductoImagen } from "../hooks/useProductoImagen";
@@ -19,7 +20,7 @@ export default function ProductPage() {
   const { reseñas, loading: loadingReseñas } = useReseñas(id);
   const { imagenes, loading: loadingImgs } = useProductoImagenes(id);
 
-  console.log("Producto:", producto);
+
 
   if (loading || loadingImg) {
     return (
@@ -57,6 +58,7 @@ export default function ProductPage() {
             productoId={producto.id}
             stock={producto.stock}                
             vendedor={producto.vendedorNombre}  
+            vendedorId={producto.vendedorId}
           />
         </div>
       </div>

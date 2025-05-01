@@ -1,3 +1,4 @@
+// src/modules/Catalogo/components/ProductImagesSlide.jsx
 export default function ProductImagesSlide({ imagenes }) {
     if (!imagenes || imagenes.length === 0) return null;
   

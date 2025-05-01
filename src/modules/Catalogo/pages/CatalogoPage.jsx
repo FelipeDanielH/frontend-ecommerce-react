@@ -1,8 +1,10 @@
+// src/modules/Catalogo/pages/CatalogoPage.jsx
 import { useState, useEffect, useMemo } from "react";
 import FiltersSidebar from "../components/FiltersSidebar";
 import ProductCard from "../components/ProductCard";
 import { useProductos } from "../hooks/useProductos";
 import { fetchCategorias } from "../services/categoriasService";
+import { useLocation } from "react-router-dom";
 
 export default function CatalogoPage() {
   const [categoriaPadre, setCategoriaPadre] = useState(null);
@@ -10,6 +12,7 @@ export default function CatalogoPage() {
   const [categorias, setCategorias] = useState([]);
 
   const categoriaActiva = categoriaHija || categoriaPadre;
+  const location = useLocation();
 
   const categoriasPadre = categorias.filter(
     (cat) => cat.categoriaPadreId === null
@@ -28,6 +31,12 @@ export default function CatalogoPage() {
   });
 
   useEffect(() => {
+    if (location.state?.categoriaPadre) {
+      setCategoriaPadre(location.state.categoriaPadre);
+    }
+  }, [location.state]);
+
+  useEffect(() => {
     fetchCategorias()
       .then(setCategorias)
       .catch((error) => {
@@ -35,14 +44,6 @@ export default function CatalogoPage() {
       });
   }, []);
 
-  console.log(
-    "🧪 Padre:",
-    categoriaPadre,
-    "Hija:",
-    categoriaHija,
-    "Productos:",
-    productos
-  );
 
   return (
     <div className="container my-5">

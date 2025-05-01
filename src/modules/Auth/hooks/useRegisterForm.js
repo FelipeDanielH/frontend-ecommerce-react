@@ -1,3 +1,4 @@
+// src/modules/Auth/hooks/useRegisterForm.js
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/authContext';
@@ -12,6 +13,7 @@ const useRegisterForm = () => {
     telefono: '',
     direccion: '',
     tipo: '', // COMPRADOR o VENDEDOR
+    numeroCuenta: '', // Nuevo campo para BancoSimple
   });
 
   const navigate = useNavigate();

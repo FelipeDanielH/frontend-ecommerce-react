@@ -1,3 +1,4 @@
+// src/modules/Auth/components/RegisterForm.jsx
 import { Link } from 'react-router-dom';
 import useRegisterForm from '../hooks/useRegisterForm';
 
@@ -125,10 +126,30 @@ export default function RegisterForm() {
           </select>
         </div>
 
+        {formData.tipo === "VENDEDOR" && (
+          <div className="mb-3">
+            <label className="form-label fw-semibold">Número de tarjeta BancoSimple</label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <i className="bi bi-credit-card-fill"></i>
+              </span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Ej: 100000000002"
+                name="numeroCuenta"
+                value={formData.numeroCuenta}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+        )}
+
         <div className="d-grid mt-2">
-        <button type="submit" className="btn btn-lg btn-green-custom">
+          <button type="submit" className="btn btn-lg btn-green-custom">
             Iniciar sesión
-        </button>
+          </button>
 
         </div>
 

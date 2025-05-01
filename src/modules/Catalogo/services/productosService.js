@@ -1,3 +1,4 @@
+//src/modules/Catalogo/services/productosService.js
 const API_URL = import.meta.env.VITE_API_URL
 
 export async function fetchProductos() {
@@ -5,7 +6,7 @@ export async function fetchProductos() {
         const response = await fetch(`${API_URL}/productos`);
         if (!response.ok) throw new Error('Error al cargar productos');
         const data = await response.json();
-        console.log(data);
+     
         return data;
     } catch (error) {
         console.error('[fetchProductos]', error);
@@ -58,6 +59,7 @@ export async function obtenerProductoConVendedor(productoId) {
     return {
       ...producto,
       vendedorNombre: vendedor.nombre,
+      vendedorId: vendedor.id,
     };
   }
 

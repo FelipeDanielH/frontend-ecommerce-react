@@ -24,7 +24,7 @@ export default function CheckoutResumen({ productos, total }) {
 
     if (result.success) {
       alert("¡Compra realizada con éxito!");
-      navigate("/perfil/compras");
+      navigate("/perfil", { state: { seccion: "compras" } });
     } else {
       alert("Hubo un error: " + result.message);
     }

@@ -1,3 +1,4 @@
+// src/modules/Catalogo/hooks/useProductos.js
 import { useEffect, useState } from "react";
 import { fetchProductosPorCategoria } from "../services/productosService";
 

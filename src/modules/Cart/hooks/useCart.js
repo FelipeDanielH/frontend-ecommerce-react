@@ -32,7 +32,7 @@ export default function useCart(usuarioId) {
             img: `https://via.placeholder.com/100x100?text=${encodeURIComponent(producto.nombre)}`,
             total: detalle.precioUnitario * detalle.cantidad,
             stock: producto.stock,
-            vendedor: producto.vendedor,
+            vendedor: producto.vendedorId,
           };
         })
       );

@@ -1,3 +1,4 @@
+// src/modules/Auth/pages/LoginPage.jsx
 import LoginForm from '../components/LoginForm';
 
 export default function LoginPage() {
