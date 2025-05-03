@@ -7,8 +7,7 @@ import CheckoutResumen from "../../OrdenCompra/components/CheckoutResumen";
 import PasarelaBancoSimple from "../../OrdenCompra/components/PasarelaBancoSimple";
 import { useCrearOrden } from "../hooks/useCrearOrden";
 import { useAuth } from "../../../context/authContext";
-import { fetchProductoById } from "../../Catalogo/services/productosService";
-import { fetchUsuarioPorId } from "../../../services/usuarioService";
+import { productoService, fetchProductoById } from "../../Catalogo/services/productosService";
 
 export default function CheckoutPage() {
   const { cartItems, vaciarCarrito, refreshCart } = useCartContext();
@@ -31,23 +30,12 @@ export default function CheckoutPage() {
     const calc = cartItems.reduce((acc, p) => acc + (p.precioUnitario || parseFloat(p.price?.replace("$", ""))) * (p.cantidad || p.qty), 0);
     setTotal(calc);
 
-    // Obtener tarjeta del primer vendedor (suponemos misma tarjeta para todos)
-    const cargarTarjeta = async () => {
-      try {
-
-        const producto = await fetchProductoById(cartItems[0].productoId || cartItems[0].id);
-
-        setNumerosTarjetaVendedor(producto?.vendedor?.numeroCuenta);
-      } catch (err) {
-        console.error("No se pudo obtener tarjeta del vendedor:", err);
-      }
-    };
-
+  
     const cargarTarjetas = async () => {
       try {
 
         const ordenes = cartItems.map((item) => {
-          return { nombreProducto: item.title, vendedorId: item.vendedor, monto: parseFloat(item.price?.replace("$", "")) * (item.cantidad || item.qty), cantidad: item.qty };
+          return { id: item.id, nombreProducto: item.title, vendedorId: item.vendedor, monto: parseFloat(item.price?.replace("$", "")) * (item.cantidad || item.qty), cantidad: item.qty, stock: item.stock };
         })
 
         setOrdenCompra(ordenes);
@@ -74,11 +62,33 @@ export default function CheckoutPage() {
       metodoPago: "BancoSimple",
     });
 
+    console.log(result);
+
     if (result.success) {
-      alert("¡Compra realizada con éxito!");
-      await vaciarCarrito();
-      await refreshCart();
-      navigate("/perfil", { state: { seccion: "compras" } });
+      // 🔥 Descontar stock en backend 🔥
+              for (const detalle of result.orden.detalles) {
+                try {
+                  const producto = await fetchProductoById(detalle.productoId);
+
+                  console.log("Producto:", producto);
+      
+                  if (producto?.stock != null) {
+                    const nuevoStock = producto.stock - detalle.cantidad;
+      
+                    if (nuevoStock >= 0) {
+                      await productoService.actualizarStock(detalle.productoId, nuevoStock);
+                    } else {
+                      console.warn(`Stock insuficiente para el producto ID ${detalle.productoId}`);
+                    }
+                  }
+                } catch (error) {
+                  console.error(`Error al actualizar stock del producto ${detalle.productoId}:`, error);
+                }
+              }
+      
+              navigate("/perfil", { state: { seccion: "compras" } });
+              await vaciarCarrito();
+              await refreshCart();
     } else {
       alert("Error al crear la orden: " + result.message);
     }

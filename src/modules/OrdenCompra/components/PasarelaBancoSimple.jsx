@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { fetchUsuarioPorId } from "../../../services/usuarioService";
 import { pagarProducto } from "../../../services/transaccionService";
+import { productoService, fetchProductoById } from "../../Catalogo/services/productosService";
 
 export default function PasarelaBancoSimple({ ordenCompra, onPagoExitoso }) {
   const [form, setForm] = useState({
@@ -33,6 +34,22 @@ export default function PasarelaBancoSimple({ ordenCompra, onPagoExitoso }) {
   const handlePagar = async (e) => {
     e.preventDefault();
 
+     //validacion de stock
+     for (const p of ordenCompra) {
+      const id = p.productoId || p.id;
+      const cantidadDeseada = p.cantidad || p.qty;
+      const producto = await fetchProductoById(id);
+    
+      if (producto.stock < cantidadDeseada) {
+        if (producto.stock === 0) {
+          errores.push(`❌ ${item.nombreProducto} está agotado`);
+        }else{
+          errores.push(`❌ ${item.nombreProducto} solo tiene ${producto.stock} en stock (querías ${item.qty})`);
+        }
+        navigate("/carrito");
+      }
+    }
+
     try {
       setLoading(true);
 
@@ -40,7 +57,7 @@ export default function PasarelaBancoSimple({ ordenCompra, onPagoExitoso }) {
         const vendedor = await fetchUsuarioPorId(producto.vendedorId);
         const numeroTarjetaVendedor = vendedor.numeroCuenta;
 
-        await pagarProducto({
+        const response = await pagarProducto({
           ...form,
           numeroTarjetaVendedor,
           monto: producto.monto,
